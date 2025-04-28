@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: unified-client-profile-kt
+  jpa:
+    database: POSTGRESQL
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+  datasource:
+    url: jdbc:postgresql://158.160.137.229:5432/postgres
+    username: postgres
+    password: pgpsw
+    hikari:
+      schema: ucp
+    driverClassName: org.postgresql.Driver

@@ -8,21 +8,10 @@ import org.springframework.stereotype.Service
 @Service
 class ProfileService(private val db: ProfileRepository) {
 
-    fun findProfile(): List<ProfileDto> = db.findAll().map { value -> toDto(value) }
-    fun findProfileById(id: String): ProfileDto {
-        db.findByGuid(id)?.let { profile: Profile ->
-            return toDto(profile)
-        }
-        return ProfileDto()
+    fun findProfile(): List<ProfileDto> = db.findAll().map { ProfileDto.fromProfile(it) }
+    fun findProfileById(id: String): ProfileDto? = db.findByGuid(id)?.let { ProfileDto.fromProfile(it) }
+    fun createProfile(request: ProfileDto?): String? = Profile.fromProfileDto(request).let { db.save(it) }.guid
+    fun updateProfile(request: ProfileDto?): String? {
+        TODO("Not yet implemented")
     }
-
-}
-
-fun toDto(profile: Profile): ProfileDto {
-    return ProfileDto(
-        profile.id,
-        profile.guid,
-        profile.name,
-        profile.surname
-    )
 }
